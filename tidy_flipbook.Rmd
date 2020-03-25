@@ -1,0 +1,72 @@
+---
+title: "Tramatic Brain Injury of Military Personnel"
+subtitle: "Diagnosed with Severe injury in 2011 through 2014"
+author: "Julianne Gallagher"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, hygge, ninjutsu]
+    nature:
+      ratio: 16:10
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+
+```{r setup, include = F}
+# This is the recommended set up for flipbooks
+# you might think about setting cache to TRUE as you gain practice --- building flipbooks from scracth can be time consuming
+knitr::opts_chunk$set(fig.width = 6, message = FALSE, warning = FALSE, comment = "", cache = FALSE, fig.retina = 3)
+library(flipbookr)
+library(tidyverse)
+```
+
+
+# Reading in and Tidying data 
+
+```{r data-wrangling}
+## read in the data
+tbi_military <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-24/tbi_military.csv')
+
+## get it in plotable form
+tbi_military %>%
+filter(year %in% c("2011", "2012", "2013", "2014"), severity == "Severe") -> tidy_military
+
+tidy_military
+```
+
+```{r brain_plot, echo= T, include=F}
+ggplot(tidy_military) +
+ #add x-axis
+  aes(x = service) +
+ #add y-axis
+  aes(y = diagnosed) +
+ #fill by service
+  aes(fill = service) +
+ #change theme 
+  theme_classic() +
+ #change colors
+  scale_fill_brewer(palette = "Set1") +
+ #make columns next to each other
+  geom_col(position = "dodge") +
+ #x and y labels
+  labs(x= "Service", y= "Number Diagnosed", fill = "Service") + 
+ # title label
+  labs(title= "Military Personnel Diagnosed with Severe Tramatic Brain Injury") + 
+ # bold title 
+  theme(plot.title = element_text(face = "bold")) + 
+ # x-axis angle of 30 and shift words down 0.5
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5)) +
+ # facet by year 
+  facet_grid(~year) 
+```
+
+
+---
+
+
+`r chunk_reveal("brain_plot")`
+
+---

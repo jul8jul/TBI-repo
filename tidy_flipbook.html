@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Tramatic Brain Injury of Military Personnel</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Julianne Gallagher" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/hygge.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Tramatic Brain Injury of Military Personnel
+## Diagnosed with Severe injury in 2011 through 2014
+### Julianne Gallagher
+
+---
+
+
+
+
+
+
+
+# Reading in and Tidying data 
+
+
+```r
+## read in the data
+tbi_military &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-24/tbi_military.csv')
+
+## get it in plotable form
+tbi_military %&gt;%
+filter(year %in% c("2011", "2012", "2013", "2014"), severity == "Severe") -&gt; tidy_military
+
+tidy_military
+```
+
+```
+# A tibble: 40 x 5
+   service   component severity diagnosed  year
+   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;
+ 1 Army      Active    Severe         155  2011
+ 2 Army      Guard     Severe          32  2011
+ 3 Army      Reserve   Severe          24  2011
+ 4 Navy      Active    Severe          24  2011
+ 5 Navy      Reserve   Severe           1  2011
+ 6 Air Force Active    Severe          25  2011
+ 7 Air Force Guard     Severe          NA  2011
+ 8 Air Force Reserve   Severe           2  2011
+ 9 Marines   Active    Severe          97  2011
+10 Marines   Reserve   Severe          14  2011
+# … with 30 more rows
+```
+
+
+
+
+---
+
+
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+*ggplot(tidy_military)
+```
+]]
+.column[.content[
+&lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_1_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(tidy_military) +  
+#add x-axis
+* aes(x = service)
+```
+]]
+.column[.content[
+&lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_2_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(tidy_military) +  
+#add x-axis
+  aes(x = service) +  
+#add y-axis
+* aes(y = diagnosed)
+```
+]]
+.column[.content[
+&lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_3_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(tidy_military) +  
+#add x-axis
+  aes(x = service) +  
+#add y-axis
+  aes(y = diagnosed) +  
+#fill by service
+* aes(fill = service)
+```
+]]
+.column[.content[
+&lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_4_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(tidy_military) +  
+#add x-axis
+  aes(x = service) +  
+#add y-axis
+  aes(y = diagnosed) +  
+#fill by service
+  aes(fill = service) +  
+#change theme
+* theme_classic()
+```
+]]
+.column[.content[
+&lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_5_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(tidy_military) +  
+#add x-axis
+  aes(x = service) +  
+#add y-axis
+  aes(y = diagnosed) +  
+#fill by service
+  aes(fill = service) +  
+#change theme
+  theme_classic() +  
+#change colors
+* scale_fill_brewer(palette = "Set1")
+```
+]]
+.column[.content[
+&lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_6_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(tidy_military) +  
+#add x-axis
+  aes(x = service) +  
+#add y-axis
+  aes(y = diagnosed) +  
+#fill by service
+  aes(fill = service) +  
+#change theme
+  theme_classic() +  
+#change colors
+  scale_fill_brewer(palette = "Set1") +  
+#make columns next to each other
+* geom_col(position = "dodge")
+```
+]]
+.column[.content[
+&lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_7_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(tidy_military) +  
+#add x-axis
+  aes(x = service) +  
+#add y-axis
+  aes(y = diagnosed) +  
+#fill by service
+  aes(fill = service) +  
+#change theme
+  theme_classic() +  
+#change colors
+  scale_fill_brewer(palette = "Set1") +  
+#make columns next to each other
+  geom_col(position = "dodge") +  
+#x and y labels
+* labs(x= "Service", y= "Number Diagnosed", fill = "Service")
+```
+]]
+.column[.content[
+&lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_8_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(tidy_military) +  
+#add x-axis
+  aes(x = service) +  
+#add y-axis
+  aes(y = diagnosed) +  
+#fill by service
+  aes(fill = service) +  
+#change theme
+  theme_classic() +  
+#change colors
+  scale_fill_brewer(palette = "Set1") +  
+#make columns next to each other
+  geom_col(position = "dodge") +  
+#x and y labels
+  labs(x= "Service", y= "Number Diagnosed", fill = "Service") +  
+# title label
+* labs(title= "Military Personnel Diagnosed with Severe Tramatic Brain Injury")
+```
+]]
+.column[.content[
+&lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_9_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(tidy_military) +  
+#add x-axis
+  aes(x = service) +  
+#add y-axis
+  aes(y = diagnosed) +  
+#fill by service
+  aes(fill = service) +  
+#change theme
+  theme_classic() +  
+#change colors
+  scale_fill_brewer(palette = "Set1") +  
+#make columns next to each other
+  geom_col(position = "dodge") +  
+#x and y labels
+  labs(x= "Service", y= "Number Diagnosed", fill = "Service") +  
+# title label
+  labs(title= "Military Personnel Diagnosed with Severe Tramatic Brain Injury") +  
+# bold title
+* theme(plot.title = element_text(face = "bold"))
+```
+]]
+.column[.content[
+&lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_10_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(tidy_military) +  
+#add x-axis
+  aes(x = service) +  
+#add y-axis
+  aes(y = diagnosed) +  
+#fill by service
+  aes(fill = service) +  
+#change theme
+  theme_classic() +  
+#change colors
+  scale_fill_brewer(palette = "Set1") +  
+#make columns next to each other
+  geom_col(position = "dodge") +  
+#x and y labels
+  labs(x= "Service", y= "Number Diagnosed", fill = "Service") +  
+# title label
+  labs(title= "Military Personnel Diagnosed with Severe Tramatic Brain Injury") +  
+# bold title
+  theme(plot.title = element_text(face = "bold")) +  
+# x-axis angle of 30 and shift words down 0.5
+* theme(axis.text.x = element_text(angle = 30, vjust = 0.5))
+```
+]]
+.column[.content[
+&lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_11_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(tidy_military) +  
+#add x-axis
+  aes(x = service) +  
+#add y-axis
+  aes(y = diagnosed) +  
+#fill by service
+  aes(fill = service) +  
+#change theme
+  theme_classic() +  
+#change colors
+  scale_fill_brewer(palette = "Set1") +  
+#make columns next to each other
+  geom_col(position = "dodge") +  
+#x and y labels
+  labs(x= "Service", y= "Number Diagnosed", fill = "Service") +  
+# title label
+  labs(title= "Military Personnel Diagnosed with Severe Tramatic Brain Injury") +  
+# bold title
+  theme(plot.title = element_text(face = "bold")) +  
+# x-axis angle of 30 and shift words down 0.5
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5)) +  
+# facet by year
+* facet_grid(~year)
+```
+]]
+.column[.content[
+&lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_12_output-1.png" width="432" /&gt;
+]]
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:10",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  /* Replace <script> tags in slides area to make them executable
+   *
+   * Runs after post-processing of markdown source into slides and replaces only
+   * <script>s on the last slide of continued slides using the .has-continuation
+   * class added by xaringan. Finally, any <script>s in the slides area that
+   * aren't executed are commented out.
+   */
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container:not(.has-continuation) script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+  var scriptsNotExecuted = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container.has-continuation script'
+  );
+  if (!scriptsNotExecuted.length) return;
+  for (var i = 0; i < scriptsNotExecuted.length; i++) {
+    var comment = document.createComment(scriptsNotExecuted[i].outerHTML)
+    scriptsNotExecuted[i].parentElement.replaceChild(comment, scriptsNotExecuted[i])
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
