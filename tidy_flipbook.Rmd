@@ -43,8 +43,6 @@ ggplot(tidy_military) +
   aes(x = service) +
  #add y-axis
   aes(y = diagnosed) +
- #fill by service
-  aes(fill = service) +
  #change theme 
   theme_classic() +
  #change colors
@@ -52,15 +50,21 @@ ggplot(tidy_military) +
  #make columns next to each other
   geom_col(position = "dodge") +
  #x and y labels
-  labs(x= "Service", y= "Number Diagnosed", fill = "Service") + 
+  labs(x= "Service", y= "Number Diagnosed") + 
  # title label
-  labs(title= "Military Personnel Diagnosed with Severe Tramatic Brain Injury") + 
+  labs(title= "Military Personnel Diagnosed with Severe TBI") + 
  # bold title 
   theme(plot.title = element_text(face = "bold")) + 
  # x-axis angle of 30 and shift words down 0.5
   theme(axis.text.x = element_text(angle = 30, vjust = 0.5)) +
  # facet by year 
-  facet_grid(~year) 
+  facet_grid(~year) + 
+ #fill by service
+  aes(fill = service) + 
+ # label of legend
+  labs(fill= "Service") + 
+ #change legend position 
+  theme(legend.position = "bottom")
 ```
 
 
@@ -70,4 +74,4 @@ ggplot(tidy_military) +
 `r chunk_reveal("brain_plot")`
 
 ---
-This tidy tuesday I learned how to use flipbookr in preperation for making a flipbook for my mid term project. This expiernce showed me how to download flipbookr and how code should be implemented line by line for the flipbook to work. 
+This tidy tuesday I learned how to use flipbookr in preperation for making a flipbook for my midterm project. This expiernce showed me how to download flipbookr and how code should be implemented line by line for the flipbook to work. 

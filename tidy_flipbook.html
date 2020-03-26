@@ -125,8 +125,8 @@ ggplot(tidy_military) +
   aes(x = service) +  
 #add y-axis
   aes(y = diagnosed) +  
-#fill by service
-* aes(fill = service)
+#change theme
+* theme_classic()
 ```
 ]]
 .column[.content[
@@ -146,10 +146,10 @@ ggplot(tidy_military) +
   aes(x = service) +  
 #add y-axis
   aes(y = diagnosed) +  
-#fill by service
-  aes(fill = service) +  
 #change theme
-* theme_classic()
+  theme_classic() +  
+#change colors
+* scale_fill_brewer(palette = "Set1")
 ```
 ]]
 .column[.content[
@@ -169,12 +169,12 @@ ggplot(tidy_military) +
   aes(x = service) +  
 #add y-axis
   aes(y = diagnosed) +  
-#fill by service
-  aes(fill = service) +  
 #change theme
   theme_classic() +  
 #change colors
-* scale_fill_brewer(palette = "Set1")
+  scale_fill_brewer(palette = "Set1") +  
+#make columns next to each other
+* geom_col(position = "dodge")
 ```
 ]]
 .column[.content[
@@ -194,14 +194,14 @@ ggplot(tidy_military) +
   aes(x = service) +  
 #add y-axis
   aes(y = diagnosed) +  
-#fill by service
-  aes(fill = service) +  
 #change theme
   theme_classic() +  
 #change colors
   scale_fill_brewer(palette = "Set1") +  
 #make columns next to each other
-* geom_col(position = "dodge")
+  geom_col(position = "dodge") +  
+#x and y labels
+* labs(x= "Service", y= "Number Diagnosed")
 ```
 ]]
 .column[.content[
@@ -221,8 +221,6 @@ ggplot(tidy_military) +
   aes(x = service) +  
 #add y-axis
   aes(y = diagnosed) +  
-#fill by service
-  aes(fill = service) +  
 #change theme
   theme_classic() +  
 #change colors
@@ -230,7 +228,9 @@ ggplot(tidy_military) +
 #make columns next to each other
   geom_col(position = "dodge") +  
 #x and y labels
-* labs(x= "Service", y= "Number Diagnosed", fill = "Service")
+  labs(x= "Service", y= "Number Diagnosed") +  
+# title label
+* labs(title= "Military Personnel Diagnosed with Severe TBI")
 ```
 ]]
 .column[.content[
@@ -250,8 +250,6 @@ ggplot(tidy_military) +
   aes(x = service) +  
 #add y-axis
   aes(y = diagnosed) +  
-#fill by service
-  aes(fill = service) +  
 #change theme
   theme_classic() +  
 #change colors
@@ -259,9 +257,11 @@ ggplot(tidy_military) +
 #make columns next to each other
   geom_col(position = "dodge") +  
 #x and y labels
-  labs(x= "Service", y= "Number Diagnosed", fill = "Service") +  
+  labs(x= "Service", y= "Number Diagnosed") +  
 # title label
-* labs(title= "Military Personnel Diagnosed with Severe Tramatic Brain Injury")
+  labs(title= "Military Personnel Diagnosed with Severe TBI") +  
+# bold title
+* theme(plot.title = element_text(face = "bold"))
 ```
 ]]
 .column[.content[
@@ -281,8 +281,6 @@ ggplot(tidy_military) +
   aes(x = service) +  
 #add y-axis
   aes(y = diagnosed) +  
-#fill by service
-  aes(fill = service) +  
 #change theme
   theme_classic() +  
 #change colors
@@ -290,11 +288,13 @@ ggplot(tidy_military) +
 #make columns next to each other
   geom_col(position = "dodge") +  
 #x and y labels
-  labs(x= "Service", y= "Number Diagnosed", fill = "Service") +  
+  labs(x= "Service", y= "Number Diagnosed") +  
 # title label
-  labs(title= "Military Personnel Diagnosed with Severe Tramatic Brain Injury") +  
+  labs(title= "Military Personnel Diagnosed with Severe TBI") +  
 # bold title
-* theme(plot.title = element_text(face = "bold"))
+  theme(plot.title = element_text(face = "bold")) +  
+# x-axis angle of 30 and shift words down 0.5
+* theme(axis.text.x = element_text(angle = 30, vjust = 0.5))
 ```
 ]]
 .column[.content[
@@ -314,8 +314,6 @@ ggplot(tidy_military) +
   aes(x = service) +  
 #add y-axis
   aes(y = diagnosed) +  
-#fill by service
-  aes(fill = service) +  
 #change theme
   theme_classic() +  
 #change colors
@@ -323,13 +321,15 @@ ggplot(tidy_military) +
 #make columns next to each other
   geom_col(position = "dodge") +  
 #x and y labels
-  labs(x= "Service", y= "Number Diagnosed", fill = "Service") +  
+  labs(x= "Service", y= "Number Diagnosed") +  
 # title label
-  labs(title= "Military Personnel Diagnosed with Severe Tramatic Brain Injury") +  
+  labs(title= "Military Personnel Diagnosed with Severe TBI") +  
 # bold title
   theme(plot.title = element_text(face = "bold")) +  
 # x-axis angle of 30 and shift words down 0.5
-* theme(axis.text.x = element_text(angle = 30, vjust = 0.5))
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5)) +  
+# facet by year
+* facet_grid(~year)
 ```
 ]]
 .column[.content[
@@ -349,8 +349,6 @@ ggplot(tidy_military) +
   aes(x = service) +  
 #add y-axis
   aes(y = diagnosed) +  
-#fill by service
-  aes(fill = service) +  
 #change theme
   theme_classic() +  
 #change colors
@@ -358,23 +356,105 @@ ggplot(tidy_military) +
 #make columns next to each other
   geom_col(position = "dodge") +  
 #x and y labels
-  labs(x= "Service", y= "Number Diagnosed", fill = "Service") +  
+  labs(x= "Service", y= "Number Diagnosed") +  
 # title label
-  labs(title= "Military Personnel Diagnosed with Severe Tramatic Brain Injury") +  
+  labs(title= "Military Personnel Diagnosed with Severe TBI") +  
 # bold title
   theme(plot.title = element_text(face = "bold")) +  
 # x-axis angle of 30 and shift words down 0.5
   theme(axis.text.x = element_text(angle = 30, vjust = 0.5)) +  
 # facet by year
-* facet_grid(~year)
+  facet_grid(~year) +  
+#fill by service
+* aes(fill = service)
 ```
 ]]
 .column[.content[
 &lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_12_output-1.png" width="432" /&gt;
 ]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(tidy_military) +  
+#add x-axis
+  aes(x = service) +  
+#add y-axis
+  aes(y = diagnosed) +  
+#change theme
+  theme_classic() +  
+#change colors
+  scale_fill_brewer(palette = "Set1") +  
+#make columns next to each other
+  geom_col(position = "dodge") +  
+#x and y labels
+  labs(x= "Service", y= "Number Diagnosed") +  
+# title label
+  labs(title= "Military Personnel Diagnosed with Severe TBI") +  
+# bold title
+  theme(plot.title = element_text(face = "bold")) +  
+# x-axis angle of 30 and shift words down 0.5
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5)) +  
+# facet by year
+  facet_grid(~year) +  
+#fill by service
+  aes(fill = service) +  
+# label of legend
+* labs(fill= "Service")
+```
+]]
+.column[.content[
+&lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_13_output-1.png" width="432" /&gt;
+]]
+---
+class: split-40
+count: false
+ 
+
+ 
+.column[.content[
+
+```r
+ggplot(tidy_military) +  
+#add x-axis
+  aes(x = service) +  
+#add y-axis
+  aes(y = diagnosed) +  
+#change theme
+  theme_classic() +  
+#change colors
+  scale_fill_brewer(palette = "Set1") +  
+#make columns next to each other
+  geom_col(position = "dodge") +  
+#x and y labels
+  labs(x= "Service", y= "Number Diagnosed") +  
+# title label
+  labs(title= "Military Personnel Diagnosed with Severe TBI") +  
+# bold title
+  theme(plot.title = element_text(face = "bold")) +  
+# x-axis angle of 30 and shift words down 0.5
+  theme(axis.text.x = element_text(angle = 30, vjust = 0.5)) +  
+# facet by year
+  facet_grid(~year) +  
+#fill by service
+  aes(fill = service) +  
+# label of legend
+  labs(fill= "Service") +  
+#change legend position
+* theme(legend.position = "bottom")
+```
+]]
+.column[.content[
+&lt;img src="tidy_flipbook_files/figure-html/brain_plot_auto_14_output-1.png" width="432" /&gt;
+]]
 
 ---
-This tidy tuesday I learned how to use flipbookr in preperation for making a flipbook for my mid term project. This expiernce showed me how to download flipbookr and how code should be implemented line by line for the flipbook to work.
+This tidy tuesday I learned how to use flipbookr in preperation for making a flipbook for my midterm project. This expiernce showed me how to download flipbookr and how code should be implemented line by line for the flipbook to work.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
