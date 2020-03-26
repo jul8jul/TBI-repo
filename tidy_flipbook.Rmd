@@ -37,7 +37,7 @@ filter(year %in% c("2011", "2012", "2013", "2014"), severity == "Severe") -> tid
 tidy_military
 ```
 
-```{r brain_plot, echo= T, include=F}
+```{r brain_plot, include=F}
 ggplot(tidy_military) +
  #add x-axis
   aes(x = service) +
@@ -70,3 +70,4 @@ ggplot(tidy_military) +
 `r chunk_reveal("brain_plot")`
 
 ---
+This tidy tuesday I learned how to use flipbookr in preperation for making a flipbook for my mid term project. This expiernce showed me how to download flipbookr and how code should be implemented line by line for the flipbook to work. 
